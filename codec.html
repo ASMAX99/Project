@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Quality Checker</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <h1>AI-Powered Code Quality Checker</h1>
+    <textarea id="codeInput" placeholder="Paste your code here..."></textarea>
+    <button onclick="analyzeCode()">Analyze Code</button>
+    <div id="feedback"></div>
+
+    <script>
+        async function analyzeCode() {
+            const code = document.getElementById("codeInput").value;
+            const response = await fetch("/analyze", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ code }),
+            });
+            const data = await response.json();
+            document.getElementById("feedback").innerHTML = data.feedback.join("<br>");
+        }
+    </script>
+</body>
+</html>
